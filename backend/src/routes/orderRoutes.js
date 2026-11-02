@@ -1,0 +1,10 @@
+import {Router} from 'express';
+import asyncHandler from 'express-async-handler';
+import {createOrder,myOrders,allOrders,updateOrderStatus} from '../controllers/orderController.js';
+import {protect,adminOnly} from '../middleware/auth.js';
+const router=Router();
+router.post('/',protect,asyncHandler(createOrder));
+router.get('/my',protect,asyncHandler(myOrders));
+router.get('/',protect,adminOnly,asyncHandler(allOrders));
+router.patch('/:id/status',protect,adminOnly,asyncHandler(updateOrderStatus));
+export default router;

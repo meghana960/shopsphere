@@ -1,0 +1,10 @@
+import {Router} from 'express';
+import asyncHandler from 'express-async-handler';
+import {listProducts,getProduct,createProduct,deleteProduct} from '../controllers/productController.js';
+import {protect,adminOnly} from '../middleware/auth.js';
+const router=Router();
+router.get('/',asyncHandler(listProducts));
+router.get('/:id',asyncHandler(getProduct));
+router.post('/',protect,adminOnly,asyncHandler(createProduct));
+router.delete('/:id',protect,adminOnly,asyncHandler(deleteProduct));
+export default router;
